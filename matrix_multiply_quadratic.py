@@ -1,16 +1,39 @@
-from decimal import Decimal, getcontext
 import math
 from random import randint
+
+def slice_2d_list(my_list, start_row, end_row, start_col, end_col):
+    sliced_list = [[my_list[i][j] for j in range(start_col, end_col)] for i in range(start_row, end_row)]
+    return sliced_list
+def split_matrix(A: list[list[int]]):
+    rows = len(A)
+    cols = len(A[0])
+    rows2 = rows // 2
+    cols2 = cols // 2
+    a = slice_2d_list(A, 0, rows2, 0, cols2)
+    b = slice_2d_list(A, 0, rows2, cols2, cols)
+    c = slice_2d_list(A, rows2, rows, 0, cols2)
+    d = slice_2d_list(A, rows2, rows, cols2, cols)
+    return a, b, c, d
+
+def calculate_max(A, B):
+    N = len(A)
+    if N == 1:
+        return max(A, B)
+    maxi: int = 0
+    a, b, c, d = split_matrix(A)
+    e, f, g, h = split_matrix(B)
+    max_1 = calculate_max(a, e)
+    max_2 = calculate_max(b, f)
+    max_3 = calculate_max(c, g)
+    max_4 = calculate_max(d, h)
+    maxi = max(max_1, max_2, max_3, max_4)
+    return maxi
 
 def matrix_multiply_positive_integer(A, B):
     assert len(A) == len(B), "Matrices must have the same length"
     N = len(A)
-    assert all(len(A[i]) == len(B[i]) for i in range(N)), "Matrices must have the same dimensions"
     
-    maxi = 0
-    for i in range(N):
-        for j in range(N):
-            maxi = max(maxi, A[i][j], B[i][j])
+    maxi = calculate_max(A, B)[0][0]
     
     M = math.ceil(math.log10(maxi))
     P = math.ceil(math.log10((10**(2*M)-1)*N))
@@ -19,21 +42,10 @@ def matrix_multiply_positive_integer(A, B):
     D = [0 for i in range(N)]
     E = [[0 for i in range(N)] for j in range(N)]
     
-    # Set the precision to the required number of digits
-    # Note that we need extra precision due to the multiplication step
-    getcontext().prec = 10 ** P - 1
-    
-    # Convert A and B to decimals
-    A_dec = [[Decimal(str(A[i][j])) for j in range(N)] for i in range(N)]
-    B_dec = [[Decimal(str(B[i][j])) for j in range(N)] for i in range(N)]
-    
     for i in range(N):
         for j in range(N):
-            C[i] = C[i] * (10**P) + A_dec[i][j] * (10**M)
-    
-    for j in range(N):
-        for i in range(N):
-            D[j] = D[j] * (10**P) + B_dec[N-1-i][j] * (10**M)
+            C[i] = C[i] * (10**P) + A[i][j] * (10**M)
+            D[i] = D[i] * (10**P) + B[N-1-j][i] * (10**M)
     
     for i in range(N):
         for j in range(N):
@@ -145,7 +157,7 @@ def ijk_method(A,B): # for verification
     return C
 
 if __name__ == "__main__":
-    N = 20
+    N = 10
     A = [ [ randint(1,150) for j in range(N) ] for i in range(N) ]
     B = [ [ randint(1,150) for j in range(N) ] for i in range(N) ]
     C1 = my_matrix_multiply(A,B)

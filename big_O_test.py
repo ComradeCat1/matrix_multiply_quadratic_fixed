@@ -1,6 +1,6 @@
 import big_o
 import functools
-from matrix_multiply_quadratic_test import my_matrix_multiply, ijk_method, matrix_multiply_positive_integer
+from matrix_multiply_quadratic_test import my_matrix_multiply, matrix_multiply_positive_integer
 from random import randint
 
 def samples(n):

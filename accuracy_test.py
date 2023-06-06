@@ -26,12 +26,12 @@ if __name__ == "__main__":
         B = [[randint(5,10) for i in range(n1)] for j in range(n1)]
         start = time()
         C1 = ijk_method(A, B)
-        print(C1)
+        # print(C1)
         end = time()
         actualTime[k] = end - start
         start = time()
         C2 = my_matrix_multiply(A, B)
-        print(C2)
+        # print(C2)
         end = time()
         experiTime[k] = end - start
         experiAccuracy[k] = calc_accuracy(C1, C2)

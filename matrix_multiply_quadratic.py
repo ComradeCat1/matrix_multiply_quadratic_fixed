@@ -40,7 +40,7 @@ def matrix_multiply_positive_integer(A, B):
     
     C = []
     D = []
-    E = [[0 for i in range(N)] for j in range(N)]
+    E = []
     
     for i in range(N):
         C.append(0)
@@ -50,7 +50,9 @@ def matrix_multiply_positive_integer(A, B):
             D[i] = D[i] * (10**P) + B[N-1-j][i] * (10**M)
     
     for i in range(N):
+        E.append([])
         for j in range(N):
+            E[i].append(0)
             E[i][j] = int((C[i] * D[j]) // (10**(P*(N-1)+2*M))) % (10**P)
     
     return E
@@ -159,7 +161,7 @@ def ijk_method(A,B): # for verification
     return C
 
 if __name__ == "__main__":
-    N = 10
+    N = 32
     A = [ [ randint(1,150) for j in range(N) ] for i in range(N) ]
     B = [ [ randint(1,150) for j in range(N) ] for i in range(N) ]
     C1 = my_matrix_multiply(A,B)

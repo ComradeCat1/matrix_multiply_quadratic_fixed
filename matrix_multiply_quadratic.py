@@ -38,11 +38,13 @@ def matrix_multiply_positive_integer(A, B):
     M = math.ceil(math.log10(maxi))
     P = math.ceil(math.log10((10**(2*M)-1)*N))
     
-    C = [0 for i in range(N)]
-    D = [0 for i in range(N)]
+    C = []
+    D = []
     E = [[0 for i in range(N)] for j in range(N)]
     
     for i in range(N):
+        C.append(0)
+        D.append(0)
         for j in range(N):
             C[i] = C[i] * (10**P) + A[i][j] * (10**M)
             D[i] = D[i] * (10**P) + B[N-1-j][i] * (10**M)

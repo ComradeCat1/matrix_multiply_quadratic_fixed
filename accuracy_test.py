@@ -1,7 +1,7 @@
 from random import randint
 import matplotlib.pyplot as plt
 from time import time
-from matrix_multiply_quadratic import my_matrix_multiply, ijk_method, matrix_multiply_positive_integer
+from matrix_multiply_quadratic_test import my_matrix_multiply, ijk_method, matrix_multiply_positive_integer
 
 def calc_accuracy(input: list[list[int]], target: list[list[int]]):
     output_list = []

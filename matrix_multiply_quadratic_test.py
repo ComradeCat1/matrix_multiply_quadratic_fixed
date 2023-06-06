@@ -17,8 +17,12 @@ def split_matrix(A: list[list[int]]):
 
 def calculate_max(A, B):
     N = len(A)
-    if N == 1:
-        return max(A, B)
+    if N == 1 and len(B) == 1:
+        return max(A[0], B[0])
+    elif N == 1:
+        return A[0]
+    elif len(B) == 1:
+        return B[0]
     maxi: int = 0
     a, b, c, d = split_matrix(A)
     e, f, g, h = split_matrix(B)
@@ -33,7 +37,7 @@ def matrix_multiply_positive_integer(A, B):
     assert len(A) == len(B), "Matrices must have the same length"
     N = len(A)
     
-    maxi = calculate_max(A, B)[0][0]
+    maxi = calculate_max(A, B)[0]
     
     M = math.ceil(math.log10(maxi))
     P = math.ceil(math.log10((10**(2*M)-1)*N))
